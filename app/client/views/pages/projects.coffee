@@ -1,7 +1,7 @@
 TemplateClass = Template.projects;
 
-goToPrecinctDesign = (id) ->
-  Router.go('design', {_id: id})
+goToProject = (id) ->
+  Router.go('project', {_id: id})
 
 TemplateClass.rendered = ->
   console.log('projects rendered');
@@ -13,7 +13,7 @@ TemplateClass.rendered = ->
   $btnLaunch = $('<a class="launch item"><i class="rocket icon"></i></a>')
   $btnLaunch.on 'click', () ->
     id = $('.selected[data-id]', $table).data('id')
-    goToPrecinctDesign(id)
+    goToProject(id)
   $buttons.append($btnLaunch)
 
 TemplateClass.helpers
@@ -25,7 +25,7 @@ TemplateClass.helpers
   onEdit: (args) ->
     console.debug 'onEdit', arguments
     if args.event?.type == 'dblclick'
-      goToPrecinctDesign(args.id)
+      goToProject(args.id)
     else
       args.defaultHandler()
   onDelete: (args) ->
