@@ -4,8 +4,16 @@
       <div class="logo"></div>
       <div class="state-name">{{stateName}}</div>
       <div class="tools left">
+        <a href="{{pathFor 'projects'}}">Projects</a>
+        <a href="{{pathFor 'users'}}">Users</a>
       </div>
       <div class="tools right">
+        {{#if currentUser}}
+          {{currentUser.username}}
+          <a class="logout" href="#">Sign out</a>
+        {{else}}
+          {{> loginButtons}}
+        {{/if}}
       </div>
     </div>
     <div class="content">
