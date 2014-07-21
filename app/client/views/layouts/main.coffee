@@ -1,7 +1,12 @@
+Template.mainLayout.rendered = ->
+  document.title = App.name
+  $('head').append('<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />');
+
 Template.mainLayout.helpers
   stateName: -> Session.get('stateName')
   project: -> Projects.getCurrent()
   currentUser: -> Meteor.user()
+
 
 Template.mainLayout.events
   'click .logo': ->

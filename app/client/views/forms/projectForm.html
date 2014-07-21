@@ -1,5 +1,5 @@
 <template name="projectForm">
-  <div class="flex-panel panel crud form">
+  <div class="flex-panel panel crud project form">
     <div class="title">{{formTitle}}</div>
     <div class="content">
       <div class="inner">
@@ -7,8 +7,11 @@
           {{#autoForm collection=collection id=formName doc=doc type=formType settings=settings}}
           {{> afQuickField name="name"}}
           {{> afQuickField name="desc"}}
-          {{> afQuickField name="location"}}
+          <!--{{> afQuickField name="location"}}-->
           {{> afQuickField name="summary"}}
+          <h3>Location</h3>
+          {{> projectMap settings=mapSettings}}
+
           <div class="buttons">
             <button type="button" class="ui red cancel button">Cancel</button>
             <div class="spacer"></div>

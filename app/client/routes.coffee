@@ -12,14 +12,34 @@ crudRoute = (collectionName, controller) ->
   editRoute = singularName + 'Edit'
   formName = singularName + 'Form'
   Router.map ->
-    this.route collectionId, {path: '/' + collectionId, controller: controller, template: collectionId}
+    this.route collectionId,
+      path: '/' + collectionId,
+      controller: controller,
+      template: collectionId
+      waitOn: ->
+        console.log('wait on', collectionId)
     this.route itemRoute,
       path: '/' + collectionId + '/create', controller: controller, template: formName
-      data: -> {}
+      waitOn: ->
+        console.log('wait on', collectionId)
+        Meteor.subscribe(collectionId)
+      data: ->
+        console.log('data', collectionId)
+        {}
+      action : ->
+        if @ready()
+          @render()
     this.route editRoute,
       # Reuse the itemRoute for editing.
       path: '/' + collectionId + '/:_id/edit', controller: controller, template: formName
-      data: -> {doc: window[collectionName].findOne(this.params._id)}
+      waitOn: -> Meteor.subscribe(collectionId)
+      data: ->
+        doc = window[collectionName].findOne(@params._id)
+        console.log('doc', doc, collectionName, @)
+        {doc: doc}
+      action : ->
+        if @ready()
+          @render()
 
 Router.onBeforeAction (pause) ->
 #  TODO(aramk) Add back when we have auth.
@@ -53,7 +73,6 @@ ProjectController = RouteController.extend
 
 ProjectsController = RouteController.extend
   template: 'projects'
-  waitOn: -> Meteor.subscribe('projects')
 
 crudRoute('Projects')
 
@@ -64,6 +83,9 @@ Router.map ->
     waitOn: -> Meteor.subscribe('projects')
     data: ->
       project: Projects.findOne(@params._id)
+    action : ->
+      if @ready()
+        @render()
   }
 
   @route 'users',

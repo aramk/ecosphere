@@ -1,4 +1,4 @@
 Meteor.methods
 
-  'projects/remove': ->
-
+  'projects/remove': (id) ->
+    Projects.remove(id)

@@ -9,7 +9,19 @@ ProjectSchema = new SimpleSchema
     type: String
   location:
     label: 'Location'
+    type: Object
+    optional: true
+  'location.name':
+    label: 'Location Name'
     type: String
+  'location.lat':
+    label: 'Latitude'
+    type: Number
+    decimal: true
+  'location.lng':
+    label: 'Longitude'
+    type: Number
+    decimal: true
   summary:
     label: 'Summary'
     type: String
