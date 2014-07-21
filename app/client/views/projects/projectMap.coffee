@@ -20,4 +20,5 @@ TemplateClass.rendered = ->
         mapTypeId: google.maps.MapTypeId[settings.type]
       map = new google.maps.Map(mapNode, mapOptions)
       map.setCenter(new google.maps.LatLng(settings.center.lat, settings.center.lng))
+      $(mapNode).data('gmap', map)
   )
