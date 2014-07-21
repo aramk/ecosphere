@@ -10,6 +10,9 @@
       "git": "https://github.com/aramk/reactive-table",
       "branch": "feature/selectable"
     },
-    "googlemaps": {}
+    "tags": {},
+    "selectize": {},
+    "googlemaps": {},
+    "easy-search": {}
   }
 }

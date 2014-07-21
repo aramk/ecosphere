@@ -1,0 +1,25 @@
+<template name="search">
+  <div>
+    <h2>Search</h2>
+
+    <div class="search-input">
+      {{> esInput index="project" placeholder="Search..." }}
+    </div>
+
+    {{#ifEsIsSearching index="project"}}
+    <div>Loading...</div>
+    {{else}}
+    <div class="results">
+      <ul>
+        {{#esEach index="project"}}
+        <li>{{> searchResult}}</li>
+        {{/esEach}}
+      </ul>
+    </div>
+    {{/ifEsIsSearching}}
+
+    {{#ifEsHasNoResults index="project"}}
+    <div class="no-results">No results found</div>
+    {{/ifEsHasNoResults}}
+  </div>
+</template>

@@ -18,5 +18,10 @@
         {{/each}}
       </div>
     </div>
+
+    <h2>Tags</h2>
+    {{#with project}}
+      {{> tagInput}}
+    {{/with}}
   </div>
 </template>

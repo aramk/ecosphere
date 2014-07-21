@@ -9,4 +9,10 @@
 /moment
 /just-i18n
 /lodash
+<<<<<<< HEAD
+/tags
+/selectize
+=======
 /googlemaps
+>>>>>>> feature/map
+/easy-search

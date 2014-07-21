@@ -1,0 +1,12 @@
+<template name="projectsWidget">
+  <h2>Projects</h2>
+  {{#if anyProjects}}
+  <ul>
+    {{#each projects}}
+      <li>{{name}}</li>
+    {{/each}}
+  </ul>
+  {{else}}
+    <p>No projects</p>
+  {{/if}}
+</template>

@@ -88,6 +88,21 @@ Router.map ->
         @render()
   }
 
+  @route 'users',
+    path: '/users'
+    waitOn: -> Meteor.subscribe 'users'
+    data: ->
+      users: Users.find().fetch()
+
+  @route 'user',
+    path: '/users/:username'
+    waitOn: -> Meteor.subscribe 'users'
+    data: -> Users.findOne {username: @params.username}
+
+  @route 'search',
+    path: '/search'
+
+
 ####################################################################################################
 # AUXILIARY
 ####################################################################################################

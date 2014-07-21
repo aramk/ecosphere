@@ -1,0 +1,9 @@
+<!-- Context is object with 'tags' property -->
+<template name='tagList'>
+  <div class='tags'>
+    <h3>Tag List</h3>
+    {{#each tags}}
+    <span class="label label-tag">{{this}}</span>
+    {{/each}}
+  </div>
+</template>

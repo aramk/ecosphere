@@ -1,0 +1,8 @@
+<!-- Context should be the object you are tagging -->
+<template name="tagInput">
+  <select class='tag-input' name='tags[]' multiple="multiple">
+    {{#each tags}}
+    <option value="{{this}}" selected="true">{{this}}</option>
+    {{/each}}
+  </select>
+</template>
