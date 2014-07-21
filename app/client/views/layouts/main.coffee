@@ -4,7 +4,7 @@ Template.mainLayout.helpers
   currentUser: -> Meteor.user()
 
 Template.mainLayout.events
-  'click .close.button': ->
+  'click .logo': ->
     Router.go('projects')
     Projects.setCurrentId(null)
   'click .edit.button': ->

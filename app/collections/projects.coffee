@@ -7,7 +7,17 @@ ProjectSchema = new SimpleSchema
   desc:
     label: 'Description'
     type: String
+  location:
+    label: 'Location'
+    type: String
+  summary:
+    label: 'Summary'
+    type: String
     optional: true
+  team:
+    label: 'Team'
+    type: [String]
+    defaultValue: []
   tags:
     label: 'Tags'
     type: [String]

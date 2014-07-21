@@ -27,6 +27,10 @@ body {
   > .header {
     padding: 10px;
     border-bottom: 1px solid #ccc;
+    > * {
+      position: relative;
+      z-index: 1;
+    }
     .logo {
       float: left;
       margin-right: 20px;
@@ -43,6 +47,7 @@ body {
       position: absolute;
       top: 14px;
       left: 0;
+      z-index: 0;
       text-align: center;
     }
     .tools {
@@ -72,6 +77,18 @@ body {
       }
       .ui.form {
         box-shadow: none;
+      }
+    }
+    // Sub container.
+    > .container {
+      width: 100%;
+      padding: 10px;
+      > .section {
+        width: 100%;
+        margin-bottom: 20px;
+        .title {
+          font-size: 20px;
+        }
       }
     }
   }

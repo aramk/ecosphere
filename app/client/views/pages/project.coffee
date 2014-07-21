@@ -1,8 +1,7 @@
 TemplateClass = Template.project;
 
-TemplateClass.anyTags = -> !!@project?.tags?.length
+TemplateClass.helpers
 
-TemplateClass.tags = -> @project?.tags
-
-#TemplateClass.rendered = ->
-#  $('select').selectize();
+  anyTags: -> !!@project?.tags?.length
+  tags: -> @project?.tags
+  team: -> _.map @team, (userId) -> Users.findOne(userId)
