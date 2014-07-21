@@ -1,0 +1,12 @@
+{
+  "name": "ecosphere",
+  "version": "0.0.0",
+  "homepage": "https://github.com/asm-products/ecosphere",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}

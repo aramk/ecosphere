@@ -1,0 +1,12 @@
+{
+  "name": "ecosphere",
+  "version": "0.0.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/asm-products/ecosphere.git"
+  },
+  "bugs": {
+    "url": "https://github.com/asm-products/ecosphere/issues"
+  },
+  "homepage": "https://github.com/asm-products/ecosphere"
+}
