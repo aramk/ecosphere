@@ -14,6 +14,7 @@ ProjectSchema = new SimpleSchema
   'location.name':
     label: 'Location Name'
     type: String
+    optional: true
   'location.lat':
     label: 'Latitude'
     type: Number
