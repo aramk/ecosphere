@@ -60,10 +60,10 @@ crudRoute('Projects')
 Router.map ->
   this.route 'project', {
     path: '/projects/:_id'
-    waitOn: ->
-      Meteor.subscribe('projects')
-#      _.map(['projects', 'entities', 'typologies'], (name) -> Meteor.subscribe(name))
     controller: ProjectController
+    waitOn: -> Meteor.subscribe('projects')
+    data: ->
+      project: Projects.findOne(@params._id)
   }
 
 ####################################################################################################
