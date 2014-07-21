@@ -9,6 +9,8 @@
     "reactive-table": {
       "git": "https://github.com/aramk/reactive-table",
       "branch": "feature/selectable"
-    }
+    },
+    "tags": {},
+    "selectize": {}
   }
 }

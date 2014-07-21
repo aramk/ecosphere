@@ -4,5 +4,10 @@
       <h1>{{project.name}}</h1>
       <div class="description">{{project.desc}}</div>
     </div>
+
+    <h2>Tags</h2>
+    {{#with project}}
+      {{> tagInput}}
+    {{/with}}
   </div>
 </template>

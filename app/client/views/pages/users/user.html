@@ -5,5 +5,10 @@
       <div class="bio">{{bio}}</div>
     </div>
     {{> projectsWidget}}
+
+    <h2>Skills &amp; Interests</h2>
+    {{#with this}}
+    {{> tagInput}}
+    {{/with}}
   </div>
 </template>
