@@ -66,6 +66,17 @@ Router.map ->
       project: Projects.findOne(@params._id)
   }
 
+  @route 'users',
+    path: '/users'
+    waitOn: -> Meteor.subscribe 'users'
+    data: ->
+      users: Users.find().fetch()
+
+  @route 'user',
+    path: '/users/:username'
+    waitOn: -> Meteor.subscribe 'users'
+    data: -> Users.findOne {username: @params.username}
+
 ####################################################################################################
 # AUXILIARY
 ####################################################################################################

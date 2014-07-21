@@ -1,6 +1,7 @@
 loadUser = (user) ->
   userAlreadyExists = typeof Meteor.users.findOne({ username: user.username }) == 'object';
   if !userAlreadyExists
+    console.log "Creating user #{user}..."
     Accounts.createUser(user)
 
 Meteor.startup ->

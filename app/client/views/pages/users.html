@@ -1,0 +1,9 @@
+<template name="users">
+  <div class="users container">
+    <ul>
+      {{#each users}}
+        <li><a href="{{pathFor 'user' username=this.username}}">{{username}}</a></li>
+      {{/each}}
+    </ul>
+  </div>
+</template>
