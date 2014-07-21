@@ -1,5 +1,6 @@
 <template name="projects">
   <div class="projects container">
+    {{> projectMap settings=mapSettings}}
     {{> collectionTable collection="Projects" settings=tableSettings}}
   </div>
 </template>

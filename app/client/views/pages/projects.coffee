@@ -32,3 +32,6 @@ TemplateClass.helpers
     id = args.id
     Meteor.call('projects/remove', id);
   }
+  mapSettings: -> {
+
+  }
