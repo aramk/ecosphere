@@ -10,7 +10,9 @@
       "git": "https://github.com/aramk/reactive-table",
       "branch": "feature/selectable"
     },
-    "tags": {},
+    "tags": {
+      "git": "https://github.com/Pie21/meteor-tags.git"
+    },
     "selectize": {},
     "googlemaps": {},
     "easy-search": {}
