@@ -7,7 +7,17 @@ ProjectSchema = new SimpleSchema
   desc:
     label: 'Description'
     type: String
+  location:
+    label: 'Location'
+    type: String
+  summary:
+    label: 'Summary'
+    type: String
     optional: true
+  team:
+    label: 'Team'
+    type: [String]
+    defaultValue: []
 
 @Projects = new Meteor.Collection 'project', schema: ProjectSchema
 Projects.schema = ProjectSchema

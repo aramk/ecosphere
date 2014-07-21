@@ -1,8 +1,22 @@
 <template name="project">
   <div class="project container">
-    <div class="info">
-      <h1>{{project.name}}</h1>
+    <div class="info section">
+      <h1 class="name">{{project.name}}</h1>
+
       <div class="description">{{project.desc}}</div>
+      <div class="location">{{project.location}}</div>
+      <div class="summary">{{project.summary}}</div>
+    </div>
+    <div class="team section">
+      <div class="title">Team</div>
+      <div class="members">
+        {{#each team}}
+        <div class="member">
+          <div class="avatar">{{avatar}}</div>
+          <div class="name">{{name}}</div>
+        </div>
+        {{/each}}
+      </div>
     </div>
   </div>
 </template>

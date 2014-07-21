@@ -3,7 +3,7 @@ Template.mainLayout.helpers
   project: -> Projects.getCurrent()
 
 Template.mainLayout.events
-  'click .close.button': ->
+  'click .logo': ->
     Router.go('projects')
     Projects.setCurrentId(null)
   'click .edit.button': ->
