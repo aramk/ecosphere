@@ -2,8 +2,8 @@
   <div>
     <h2>Search</h2>
 
-    <div class="search-input">
-      {{> esInput index="project" placeholder="Search..." }}
+    <div class="search-wrapper">
+      {{> esInput index="project" placeholder="Search..." classes="search-input" }}
     </div>
 
     {{#ifEsIsSearching index="project"}}

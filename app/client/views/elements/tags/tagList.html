@@ -3,7 +3,7 @@
   <div class='tags'>
     <h3>Tag List</h3>
     {{#each tags}}
-    <span class="label label-tag">{{this}}</span>
+    <a href="{{pathFor 'search' query=query}}"><span class="label label-tag">{{this}}</span></a>
     {{/each}}
   </div>
 </template>

@@ -11,17 +11,17 @@
       <div class="title">Team</div>
       <div class="members">
         {{#each team}}
-        <div class="member">
+        <a href="{{pathFor 'users'}}"><div class="member">
           <div class="avatar">{{avatar}}</div>
           <div class="name">{{name}}</div>
-        </div>
+        </div></a>
         {{/each}}
       </div>
     </div>
 
     <h2>Tags</h2>
     {{#with project}}
-      {{> tagInput}}
+      {{> tagList}}
     {{/with}}
   </div>
 </template>
