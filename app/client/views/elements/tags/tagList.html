@@ -2,7 +2,7 @@
 <template name='tagList'>
   <div class='tags'>
     {{#each tags}}
-    <a href="{{pathFor 'search' query=query}}"><span class="label label-tag">{{this}}</span></a>
+    <a href="{{pathFor 'search' query=query}}"><span class="label tag-label">{{this}}</span></a>
     {{/each}}
   </div>
 </template>
