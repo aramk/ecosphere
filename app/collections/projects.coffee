@@ -51,5 +51,5 @@ Meteor.startup ->
   # TODO(orlade): Allow tags from core team members (just be logged in for now).
   Projects.allowTags (userId) -> !!userId
 
-  Projects.initEasySearch ['name', 'desc', 'summary'],
+  Projects.initEasySearch ['name', 'desc', 'summary', 'tags'],
     'limit' : 20
