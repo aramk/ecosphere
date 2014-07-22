@@ -3,23 +3,45 @@
     <h2>Search</h2>
 
     <div class="search-wrapper">
-      {{> esInput index="project" placeholder="Search..." classes="search-input" }}
+      {{> esInput index=indexes placeholder="Search..." classes="search-input" }}
     </div>
 
     {{#ifEsIsSearching index="project"}}
-    <div>Loading...</div>
+    <p>Searching...</p>
     {{else}}
+    {{#ifEsIsSearching index="user"}}
+    <p>Searching...</p>
+    {{else}}
+
     <div class="results">
+      {{#ifEsHasNoResults index="project"}}
+      {{else}}
+      <h3>Projects</h3>
       <ul>
         {{#esEach index="project"}}
-        <li>{{> searchResult}}</li>
+        <li>{{> searchResultProject}}</li>
         {{/esEach}}
       </ul>
-    </div>
-    {{/ifEsIsSearching}}
+      {{/ifEsHasNoResults}}
 
-    {{#ifEsHasNoResults index="project"}}
-    <div class="no-results">No results found</div>
-    {{/ifEsHasNoResults}}
+      {{#ifEsHasNoResults index="user"}}
+      {{else}}
+      <h3>Users</h3>
+      <ul>
+        {{#esEach index="user"}}
+        <li>{{> searchResultUser}}</li>
+        {{/esEach}}
+      </ul>
+      {{/ifEsHasNoResults}}
+
+      {{#ifEsHasNoResults index="project"}}
+      {{#ifEsHasNoResults index="user"}}
+      <b>No results</b>
+      {{/ifEsHasNoResults}}
+      {{/ifEsHasNoResults}}
+    </div>
+
+    {{/ifEsIsSearching}}
+    {{/ifEsIsSearching}}
   </div>
 </template>

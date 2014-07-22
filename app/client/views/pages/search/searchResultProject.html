@@ -1,0 +1,9 @@
+<template name="searchResultProject">
+  <div class="result">
+    <div><b><a href="{{pathFor 'project' _id=_id}}">{{name}}</a></b></div>
+    <div>{{summary}}</div>
+    {{#with this}}
+      {{> tagList}}
+    {{/with}}
+  </div>
+</template>

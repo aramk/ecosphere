@@ -1,0 +1,8 @@
+<template name="searchResultUser">
+  <div class="result">
+    <div><b><a href="{{pathFor 'user' username=username}}">{{username}}</a></b></div>
+    {{#with this}}
+      {{> tagList}}
+    {{/with}}
+  </div>
+</template>

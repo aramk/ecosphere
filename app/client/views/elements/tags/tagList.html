@@ -1,7 +1,6 @@
 <!-- Context is object with 'tags' property -->
 <template name='tagList'>
   <div class='tags'>
-    <h3>Tag List</h3>
     {{#each tags}}
     <a href="{{pathFor 'search' query=query}}"><span class="label label-tag">{{this}}</span></a>
     {{/each}}

@@ -19,3 +19,7 @@ Meteor.startup ->
   Tags.TagsMixin(Users);
   # TODO(orlade): Allow tags from core team members (just be logged in for now).
   Users.allowTags (userId) -> userId == Meteor.userId()
+
+  EasySearch.createSearchIndex 'user',
+    'field' : ['name', 'username', 'tags']
+    'collection' : Users
