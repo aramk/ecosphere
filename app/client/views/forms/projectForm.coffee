@@ -57,7 +57,7 @@ Meteor.startup ->
       console.log('template', template)
       project = @data.doc
       console.log('doc', project)
-      location = project.location
+      location = project?.location
 
       addProjectMarker = (location) ->
         args =
@@ -79,7 +79,7 @@ Meteor.startup ->
             addProjectMarker(location)
 
             # TODO(aramk) Use the before hooks once they work.
-            existingLocation = project.location ?= {}
+            existingLocation = project?.location ?= {}
             _.extend(existingLocation, location)
             result = Projects.update(project._id, {$set: {location: existingLocation}})
             console.log('update project location', project, result)

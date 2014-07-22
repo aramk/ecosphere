@@ -1,3 +1,5 @@
+var TAG_LIMIT = 7;
+
 // Returns the collection to which the given data object belongs.
 // TODO(orlade): Use more sophisticated method.
 function getCollection(data) {
@@ -25,7 +27,7 @@ Template.tagInput.rendered = function () {
 
       return tag;
     },
-    options: Meteor.tags.find().fetch(),
+    options: Meteor.tags.find({}, {limit: TAG_LIMIT}).fetch(),
     render: {
       item: function(item, escape) {
         return '<div>' +
