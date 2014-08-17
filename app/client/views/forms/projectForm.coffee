@@ -58,8 +58,11 @@ Meteor.startup ->
   Form = Forms.defineModelForm
     name: 'projectForm'
     collection: 'Projects'
-    onSuccess: close
+
     onCancel: close
+
+    onSuccess: close
+
     onRender: ->
       template = @
       console.log('template', template)
@@ -91,10 +94,17 @@ Meteor.startup ->
       before:
         insert: (doc, template) ->
           console.error('insert doc', doc)
+          doc.team ?= []
+          doc.team.push(
+            id: Meteor.userId()
+            username: Meteor.user().username
+            role: 'owner'
+          )
           location = getMarkerLatLng(template)
           existing = doc.location ?= {}
           _.extend(existing, location)
           doc
+
         update: (docId, modifier, template) ->
           console.error('update doc', modifier, template)
           location = getMarkerLatLng(template)
@@ -103,6 +113,7 @@ Meteor.startup ->
           existing = doc.location ?= {}
           _.extend(existing, location)
           modifier
+
       formToDoc: (doc) ->
         console.error('formToDoc', doc, @)
         doc

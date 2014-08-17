@@ -2,7 +2,7 @@
   {{#with _settings}}
   <div class="collection-table">
     <div class="ui menu toolbar">
-      <a class="create item"><i class="add icon"></i></a>
+      <a href="{{pathFor 'projectCreate'}}" class="create item"><i class="add icon"></i></a>
       {{#with ..}}
       <div class="on-selection-show item" style="{{selectionItemsStyle}}">
         <a class="edit item"><i class="pencil icon"></i></a>

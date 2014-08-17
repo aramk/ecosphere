@@ -51,7 +51,7 @@ function configureSettings(data) {
     var collectionName = data.collectionName || Collections.getName(collection);
     if (collectionName) {
       var collectionId = Strings.firstToLowerCase(Strings.singular(collectionName));
-      data.createRoute = data.createRoute || collectionId + 'Item';
+      data.createRoute = data.createRoute || collectionId + 'Create';
       data.editRoute = data.editRoute || collectionId + 'Edit';
     } else {
       console.warn('No collection name provided', data);

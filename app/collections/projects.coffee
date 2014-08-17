@@ -29,8 +29,17 @@ ProjectSchema = new SimpleSchema
     optional: true
   team:
     label: 'Team'
-    type: [String]
+    type: [Object]
     defaultValue: []
+  'team.$.id':
+    label: 'ID'
+    type: String
+  'team.$.username':
+    label: 'Username'
+    type: String
+  'team.$.role':
+    label: 'Role'
+    type: String
   tags:
     label: 'Tags'
     type: [String]
@@ -46,6 +55,10 @@ Projects.getCurrentId = -> Session.get('projectId')
 
 Projects.getCurrent = ->
   Projects.findOne Projects.getCurrentId()
+
+Projects.getOwner = (project) ->
+  for member in project.team
+    if member.role == 'owner' then return member
 
 Meteor.startup ->
   Tags.TagsMixin(Projects);

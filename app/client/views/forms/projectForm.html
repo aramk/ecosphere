@@ -1,6 +1,6 @@
 <template name="projectForm">
-  <div class="flex-panel panel crud project form">
-    <div class="title">{{formTitle}}</div>
+  <div class="project crud form">
+    <h2 class="title">{{formTitle}}</h2>
     <div class="content">
       <div class="inner">
         <div class="ui form segment">
@@ -9,9 +9,9 @@
           {{> afQuickField name="desc"}}
           <!--{{> afQuickField name="location"}}-->
           {{> afQuickField name="summary"}}
-          <h3>Tags</h3>
+          <div>Tags</div>
           {{> tagInput}}
-          <h3>Location</h3>
+          <div>Location</div>
           {{> projectMap settings=mapSettings}}
 
           <div class="buttons">

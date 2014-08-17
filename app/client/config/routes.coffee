@@ -23,18 +23,6 @@ crudRoute = (collectionName, controller) ->
       waitOn: ->
         console.log('wait on', collectionId)
 
-    this.route itemRoute,
-      path: '/' + collectionId + '/:_id',
-      controller: controller,
-      waitOn: ->
-        console.log('wait on', collectionId)
-        Meteor.subscribe(collectionId)
-      data: ->
-        project: Projects.findOne(@params._id)
-      action: ->
-        if @ready()
-          @render()
-
     this.route createRoute,
       path: '/' + collectionId + '/create', controller: controller, template: formName
       waitOn: ->
@@ -43,6 +31,18 @@ crudRoute = (collectionName, controller) ->
       data: ->
         console.log('data', collectionId)
         {}
+      action: ->
+        if @ready()
+          @render()
+
+    this.route itemRoute,
+      path: '/' + collectionId + '/:_id',
+      controller: controller,
+      waitOn: ->
+        console.log('wait on', collectionId)
+        Meteor.subscribe(collectionId)
+      data: ->
+        project: Projects.findOne(@params._id)
       action: ->
         if @ready()
           @render()
