@@ -2,8 +2,6 @@
 # CONFIG
 ####################################################################################################
 
-console.debug 'routing'
-
 crudRoute = (collectionName, controller) ->
   controller ?= AuthController
   collectionId = Strings.firstToLowerCase(collectionName)
@@ -16,48 +14,38 @@ crudRoute = (collectionName, controller) ->
   formName = singularName + 'Form'
 
   Router.map ->
-    this.route listRoute,
+    # Displays a list of items in the collection.
+    @route listRoute,
       path: '/' + collectionId,
       controller: controller,
       template: collectionId
-      waitOn: ->
-        console.log('wait on', collectionId)
 
-    this.route createRoute,
+    # Displays a form to create a new item in the collection.
+    # Note: Must be before itemRoute to match the path first.
+    @route createRoute,
       path: '/' + collectionId + '/create', controller: controller, template: formName
-      waitOn: ->
-        console.log('wait on', collectionId)
-        Meteor.subscribe(collectionId)
-      data: ->
-        console.log('data', collectionId)
-        {}
-      action: ->
-        if @ready()
-          @render()
+      waitOn: -> Meteor.subscribe(collectionId)
+      data: -> {}
+      action: -> if @ready() then @render()
 
-    this.route itemRoute,
-      path: '/' + collectionId + '/:_id',
-      controller: controller,
-      waitOn: ->
-        console.log('wait on', collectionId)
-        Meteor.subscribe(collectionId)
-      data: ->
-        project: Projects.findOne(@params._id)
-      action: ->
-        if @ready()
-          @render()
-
-    this.route editRoute,
+    # Displays a form to edit the contents of an item in the collection.
+    @route editRoute,
       # Reuse the itemRoute for editing.
       path: '/' + collectionId + '/:_id/edit', controller: controller, template: formName
       waitOn: -> Meteor.subscribe(collectionId)
       data: ->
         doc = window[collectionName].findOne(@params._id)
-        console.log('doc', doc, collectionName, @)
+        console.debug('doc', doc, collectionName, @)
         {doc: doc}
-      action: ->
-        if @ready()
-          @render()
+      action: -> if @ready() then @render()
+
+    # Displays the details of an item in the collection.
+    @route itemRoute,
+      path: '/' + collectionId + '/:_id',
+      controller: controller,
+      waitOn: -> Meteor.subscribe(collectionId)
+      data: -> project: Projects.findOne(@params._id)
+      action: -> if @ready() then @render()
 
 Router.onBeforeAction (pause) ->
 #  TODO(aramk) Add back when we have auth.
@@ -79,25 +67,27 @@ Router.onBeforeAction (pause) ->
 # ROUTES
 ####################################################################################################
 
-
+# Create CRUD routes for Project items.
 crudRoute('Projects')
 
+# Set up the rest of the routes.
 Router.map ->
+  # Display a list of users.
   @route 'users',
     path: '/users'
     waitOn: -> Meteor.subscribe 'users'
-    data: ->
-      users: Users.find().fetch()
+    data: -> users: Users.find().fetch()
 
+  # Displays details about a user.
   @route 'user',
     path: '/users/:username'
     waitOn: -> Meteor.subscribe 'users'
     data: -> Users.findOne {username: @params.username}
 
+  # Display the search template to search application data.
   @route 'search',
     path: '/search'
-    data: ->
-      query: @params.query
+    data: -> query: @params.query
 
 ####################################################################################################
 # CONTROLLERS
@@ -107,13 +97,10 @@ AuthController = RouteController.extend({})
 
 ProjectController = RouteController.extend
   template: 'project'
-  waitOn: ->
-    Meteor.subscribe('projects')
+  waitOn: -> Meteor.subscribe('projects')
 # TODO(aramk) Waiting on more than one doesn't work.
 #    _.map(['projects', 'entities', 'typologies'], (name) -> Meteor.subscribe(name))
-  onBeforeAction: ->
-    id = @.params._id
-    Projects.setCurrentId(id)
+  onBeforeAction: -> Projects.setCurrentId(@.params._id)
 
 ProjectsController = RouteController.extend
   template: 'projects'
@@ -125,9 +112,12 @@ ProjectsController = RouteController.extend
 # Allow storing the last route visited and switching back.
 origGoFunc = Router.go
 _lastPath = null
+
 Router.setLastPath = (name, params) ->
   _lastPath = {name: name, params: params}
+
 Router.getLastPath = -> _lastPath
+
 Router.goToLastPath = ->
   name = _lastPath.name
   current = Router.current()
