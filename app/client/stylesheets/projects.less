@@ -24,6 +24,22 @@
   .map {
     width: 100%;
     height: 100%;
+    // Info window
+    .gm-style-iw {
+      .title {
+        font-size: 16px;
+        font-weight: bold;
+        margin-bottom: 5px;
+      }
+      .coords {
+        display: inline-block;
+      }
+      min-width: 200px;
+    }
+    // Fixes conflicts with Semantic UI CSS.
+    img {
+      max-width: inherit;
+    }
   }
 }
 
