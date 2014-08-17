@@ -96,6 +96,15 @@ Router.map ->
     path: '/search'
     data: -> query: @params.query
 
+  # Display the user documentation.
+  @route 'helpRoot',
+    path: '/help'
+    action: -> Router.go('/help/index')
+
+  @route 'help',
+    path: '/help/:category'
+    data: -> category: @params.category
+
 ####################################################################################################
 # CONTROLLERS
 ####################################################################################################
