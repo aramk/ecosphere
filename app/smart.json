@@ -13,6 +13,9 @@
     "tags": {
       "git": "https://github.com/Pie21/meteor-tags.git"
     },
+    "meteor-utility": {
+      "git": "https://github.com/aramk/meteor-utility"
+    },
     "selectize": {},
     "googlemaps": {},
     "easy-search": {}
