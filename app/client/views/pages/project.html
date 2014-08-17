@@ -1,6 +1,8 @@
 <template name="project">
   <div class="project container">
+    {{#if isOwner}}
     <a class="ui button" href="{{pathFor 'projectEdit' _id=project._id}}">Edit</a>
+    {{/if}}
 
     <div class="info section">
       <h1 class="name">{{project.name}}</h1>
