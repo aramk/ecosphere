@@ -66,7 +66,8 @@ addProjectMarker = (id) ->
     lng = location.lng
     coords = if lat? && lng? then lat.toFixed(6) + ', ' + lng.toFixed(6)
     content = '<div class="title">' + title + '</div><div class="desc">' + desc + '</div>' +
-      '<div class="location"><i class="globe icon"></i> ' + locationName + coords + '</div>'
+      '<div class="location"><i class="globe icon"></i><div class="coords">' + locationName +
+      coords + '</div></div>'
     addMarker id: id, title: title, location: location, content: content
 
 TemplateClass.rendered = ->
