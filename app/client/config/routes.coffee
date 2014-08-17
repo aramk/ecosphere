@@ -26,6 +26,7 @@ crudRoute = (collectionName, controller) ->
       path: '/' + collectionId + '/create', controller: controller, template: formName
       waitOn: -> Meteor.subscribe(collectionId)
       data: -> {}
+      onBeforeAction: -> AccountsEntry.signInRequired @
       action: -> if @ready() then @render()
 
     # Displays a form to edit the contents of an item in the collection.
@@ -37,6 +38,7 @@ crudRoute = (collectionName, controller) ->
         doc = window[collectionName].findOne(@params._id)
         console.debug('doc', doc, collectionName, @)
         {doc: doc}
+      onBeforeAction: -> AccountsEntry.signInRequired @
       action: -> if @ready() then @render()
 
     # Displays the details of an item in the collection.
@@ -48,10 +50,11 @@ crudRoute = (collectionName, controller) ->
       action: -> if @ready() then @render()
 
 Router.onBeforeAction (pause) ->
-#  TODO(aramk) Add back when we have auth.
+##  TODO(aramk) Add back when we have auth.
 #  # This redirects users to a sign in form.
 #  AccountsEntry.signInRequired(this.router)
-#  TODO(aramk) Add back when we have auth.
+#
+#  #  TODO(aramk) Add back when we have auth.
 #  # Empty path is needed for page not found.
 #  whiteList = ['', '/sign-in', '/sign-out', '/sign-up', '/forgot-password']
 #  isWhiteListed = Arrays.trueMap(whiteList)[this.path];
@@ -72,6 +75,10 @@ crudRoute('Projects')
 
 # Set up the rest of the routes.
 Router.map ->
+  # Display an overview of the system.
+  @route 'home',
+    path: '/'
+
   # Display a list of users.
   @route 'users',
     path: '/users'

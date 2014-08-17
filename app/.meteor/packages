@@ -10,6 +10,7 @@ underscore
 lodash
 handlebar-helpers
 iron-router
+accounts-entry
 accounts-password
 accounts-ui
 semantic-ui
