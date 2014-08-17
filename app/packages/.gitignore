@@ -13,10 +13,7 @@
 /selectize
 /googlemaps
 /easy-search
-<<<<<<< HEAD
 /meteor-utility
-=======
->>>>>>> f51981d58af588bbeb1815e6ed0140cf046799f4
 /iron-layout
 /iron-core
 /iron-dynamic-template
@@ -24,3 +21,5 @@
 /accounts-t9n
 /simple-form
 /underscore-string-latest
+/q
+/marked

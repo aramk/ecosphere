@@ -1,3 +1,13 @@
+TemplateClass = Template.projectForm
+
+TemplateClass.rendered = ->
+  # If there is no phase saved, select the first one by default.
+  unless this.data.doc?.phase? then $('input[name="phase"]').first().click()
+
+TemplateClass.helpers
+  phaseOptions: -> Projects.schema._schema.phase.allowedValues
+
+
 getMap = (template) ->
   $map = $(template.find('.map'))
   map = $map.data('gmap')
@@ -93,7 +103,7 @@ Meteor.startup ->
     hooks:
       before:
         insert: (doc, template) ->
-          console.error('insert doc', doc)
+          # Ensure the owner is saved to the team.
           doc.team ?= []
           doc.team.push(
             id: Meteor.userId()

@@ -6,9 +6,9 @@
         <div class="ui form segment">
           {{#autoForm collection=collection id=formName doc=doc type=formType settings=settings}}
           {{> afQuickField name="name"}}
-          {{> afQuickField name="desc"}}
-          <!--{{> afQuickField name="location"}}-->
           {{> afQuickField name="summary"}}
+          {{> afQuickField name="desc"}}
+          {{> afQuickField name="phase" options="allowed" noselect="true" }}
           <div>Tags</div>
           {{> tagInput}}
           <div>Location</div>

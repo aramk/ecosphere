@@ -1,4 +1,5 @@
 ProjectSchema = new SimpleSchema
+# General
   name:
     label: 'Name'
     type: String,
@@ -19,14 +20,35 @@ ProjectSchema = new SimpleSchema
     label: 'Latitude'
     type: Number
     decimal: true
+    optional: true
   'location.lng':
     label: 'Longitude'
     type: Number
     decimal: true
+    optional: true
   summary:
     label: 'Summary'
     type: String
     optional: true
+  tags:
+    label: 'Tags'
+    type: [String]
+    optional: true
+
+# Status
+  phase:
+    label: 'Phase'
+    type: String
+    allowedValues: ['Ideation', 'Specification', 'Business Case', 'Approval', 'Funding',
+                    'Implementation', 'Scale']
+
+# Resources
+  resources:
+    label: 'Resources'
+    type: [Object]
+    defaultValue: []
+
+# Personnel
   team:
     label: 'Team'
     type: [Object]
@@ -40,10 +62,6 @@ ProjectSchema = new SimpleSchema
   'team.$.role':
     label: 'Role'
     type: String
-  tags:
-    label: 'Tags'
-    type: [String]
-    optional: true
 
 @Projects = new Meteor.Collection 'project', schema: ProjectSchema
 Projects.schema = ProjectSchema
