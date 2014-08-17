@@ -19,6 +19,7 @@
     },
     "selectize": {},
     "googlemaps": {},
-    "easy-search": {}
+    "easy-search": {},
+    "q": {}
   }
 }
