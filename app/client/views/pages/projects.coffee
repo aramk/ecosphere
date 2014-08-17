@@ -43,7 +43,11 @@ addMarker = (args) ->
         content: content
       marker.infoWindow = infoWindow
       google.maps.event.addListener marker, 'click', ->
-        closeAllInfoWindows().then -> infoWindow.open map, marker
+        console.log('marker', marker);
+        isInfoWindowOpen = !!infoWindow.getMap()
+        closeAllInfoWindows().then ->
+          # If the window was already open, toggle it closed.
+          infoWindow.open map, marker unless isInfoWindowOpen
     markers[id] = marker
     marker
 

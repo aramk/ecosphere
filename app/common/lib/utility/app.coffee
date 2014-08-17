@@ -1,2 +1,2 @@
 @App =
-  name: 'Ecosphere'
+  name: 'Project Better'
