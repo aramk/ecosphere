@@ -13,30 +13,37 @@ getMap = ->
   GoogleMaps.init(
     {}
     ->
-      console.debug google.maps
       $map = $(template.find('.map'))
       map = $map.data('gmap')
-      console.log('map', map)
       df.resolve(map)
   )
   df.promise
 
 markers = {}
 
+closeAllInfoWindows = ->
+  getMap().then (map) ->
+    _.each markers, (marker) ->
+      marker.infoWindow?.close()
+
 addMarker = (args) ->
   id = args.id
   unless id
     throw new Error('No ID provided for marker')
   location = args.location
+  content = args.content
   getMap().then (map) ->
-    console.debug google.maps
     pos = new google.maps.LatLng location.lat, location.lng
-    $map = $(template.find('.map'))
     marker = new google.maps.Marker
       position: pos,
       map: map,
       title: args.title
-    console.log('marker', marker)
+    if content?
+      infoWindow = new google.maps.InfoWindow
+        content: content
+      marker.infoWindow = infoWindow
+      google.maps.event.addListener marker, 'click', ->
+        closeAllInfoWindows().then -> infoWindow.open map, marker
     markers[id] = marker
     marker
 
@@ -52,7 +59,15 @@ addProjectMarker = (id) ->
   project = Projects.findOne(id)
   location = project.location
   if location?
-    addMarker id: id, title: project.name, location: location
+    title = project.name
+    desc = project.desc
+    locationName = if location.name then location.name + ' - ' else ''
+    lat = location.lat
+    lng = location.lng
+    coords = if lat? && lng? then lat.toFixed(6) + ', ' + lng.toFixed(6)
+    content = '<div class="title">' + title + '</div><div class="desc">' + desc + '</div>' +
+      '<div class="location"><i class="globe icon"></i> ' + locationName + coords + '</div>'
+    addMarker id: id, title: title, location: location, content: content
 
 TemplateClass.rendered = ->
   template = @
@@ -82,6 +97,10 @@ TemplateClass.rendered = ->
     removed: (oldProject) ->
       console.log('removed', arguments)
       removeMarker(oldProject._id)
+
+  # Hide info windows on map click.
+  getMap().then (map) ->
+    google.maps.event.addListener map, 'click', -> closeAllInfoWindows()
 
 #  Deps.autorun ->
 #    _.each Projects.find().fetch(), (project) ->
