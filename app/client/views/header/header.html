@@ -1,8 +1,8 @@
 <template name="header">
   <header>
     <div class="ui tiered menu">
-      <div class="menu">
-        <a class="app title item" href="{{pathFor 'home'}}">meBoard</a>
+      <div class="main menu">
+        <a class="logo" href="{{pathFor 'home'}}"></a>
 
         <a class="active item" href="{{pathFor 'projects'}}">
           <i class="home icon"></i> Projects
@@ -20,13 +20,16 @@
           <div class="ui dropdown item">
             <i class="user icon"></i> {{currentUser.username}} <i class="dropdown icon"></i>
 
-            <div class="menu">
-              <a href="{{pathFor 'user' _id=currentUser.id}}" class="profile item"><i class="edit icon"></i> Edit Profile</a>
-              <a href="{{pathFor 'entrySignOut'}}" class="logout item"><i class="sign out icon"></i> Sign out</a>
+            <div class="profile menu">
+              <a href="{{pathFor 'user' username=currentUser.username}}" class="profile item">
+                <i class="edit icon"></i> Profile</a>
+              <a href="{{pathFor 'entrySignOut'}}" class="logout item"><i class="sign out icon"></i>
+                Sign out</a>
             </div>
           </div>
           {{else}}
-          <a href="{{pathFor 'entrySignIn'}}" class="login item"><i class="sign in icon"></i> Sign in</a>
+          <a href="{{pathFor 'entrySignIn'}}" class="login item"><i class="sign in icon"></i> Sign
+            in</a>
           {{/if}}
         </div>
       </div>

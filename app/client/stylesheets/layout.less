@@ -31,19 +31,24 @@ body {
       z-index: 1;
     }
     .logo {
-      float: left;
+      vertical-align: middle;
       margin-right: 20px;
       font-size: 20px;
-      font-weight: bold;
+      text-decoration: none;
+      color: @app-title-color;
       &:hover {
         color: @app-title-light-color;
       }
       &::before {
-        content: 'ecosphere';
-        text-transform: uppercase;
-        cursor: pointer;
+        content: 'Project';
+        font-weight: lighter;
+      }
+      &::after {
+        content: 'Better';
+        font-weight: bolder;
       }
     }
+
     .state-name {
       display: inline-block;
       line-height: 15px;
