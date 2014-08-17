@@ -1,7 +1,7 @@
-TemplateClass = Template.projects;
+TemplateClass = Template.projects
 
 goToProject = (id) ->
-  Router.go('project', {_id: id})
+  Router.go 'project', {_id: id}
 
 getProjects = -> Projects.find()
 
@@ -10,16 +10,17 @@ addMarker = (template, args) ->
   GoogleMaps.init(
     {}
     ->
-      pos = new google.maps.LatLng(location.lat, location.lng)
+      console.debug google.maps
+      pos = new google.maps.LatLng location.lat, location.lng
       $map = $(template.find('.map'))
       map = $map.data('gmap')
       console.log('$map', $map)
       console.log('map', map)
-      marker = new google.maps.Marker({
+      marker = new google.maps.Marker
         position: pos,
         map: map,
         title: args.title
-      })
+
       console.log('marker', marker)
   )
 
@@ -41,26 +42,30 @@ TemplateClass.rendered = ->
     _.each Projects.find().fetch(), (project) ->
       location = project.location
       if location?
-        args = title: project.name, location: location
+        args =
+          title: project.name, location: location
         addMarker template, args
+
 
 TemplateClass.helpers
   projects: getProjects
-  tableSettings: -> {
-  fields: [
-    key: 'name'
-    label: 'Name'
-  ]
-  onEdit: (args) ->
-    console.debug 'onEdit', arguments
-    if args.event?.type == 'dblclick'
-      goToProject(args.id)
-    else
-      args.defaultHandler()
-  onDelete: (args) ->
-    id = args.id
-    Meteor.call('projects/remove', id);
-  }
+
+  tableSettings: ->
+    fields: [
+      key: 'name'
+      label: 'Name'
+    ]
+
+    onEdit: (args) ->
+      console.debug 'onEdit', arguments
+      if args.event?.type == 'dblclick'
+        goToProject(args.id)
+      else
+        args.defaultHandler()
+
+    onDelete: (args) ->
+      Meteor.call 'projects/remove', args.id
+
   mapSettings: -> {
 
   }

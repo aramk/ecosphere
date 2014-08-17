@@ -1,4 +1,4 @@
-TemplateClass = Template.project;
+TemplateClass = Template.project
 
 TemplateClass.helpers
 

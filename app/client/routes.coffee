@@ -11,6 +11,7 @@ crudRoute = (collectionName, controller) ->
   itemRoute = singularName + 'Item'
   editRoute = singularName + 'Edit'
   formName = singularName + 'Form'
+
   Router.map ->
     this.route collectionId,
       path: '/' + collectionId,
@@ -18,6 +19,7 @@ crudRoute = (collectionName, controller) ->
       template: collectionId
       waitOn: ->
         console.log('wait on', collectionId)
+
     this.route itemRoute,
       path: '/' + collectionId + '/create', controller: controller, template: formName
       waitOn: ->
@@ -26,9 +28,10 @@ crudRoute = (collectionName, controller) ->
       data: ->
         console.log('data', collectionId)
         {}
-      action : ->
+      action: ->
         if @ready()
           @render()
+
     this.route editRoute,
       # Reuse the itemRoute for editing.
       path: '/' + collectionId + '/:_id/edit', controller: controller, template: formName
@@ -37,7 +40,7 @@ crudRoute = (collectionName, controller) ->
         doc = window[collectionName].findOne(@params._id)
         console.log('doc', doc, collectionName, @)
         {doc: doc}
-      action : ->
+      action: ->
         if @ready()
           @render()
 
@@ -83,7 +86,7 @@ Router.map ->
     waitOn: -> Meteor.subscribe('projects')
     data: ->
       project: Projects.findOne(@params._id)
-    action : ->
+    action: ->
       if @ready()
         @render()
   }
