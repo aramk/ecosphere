@@ -1,7 +1,7 @@
 TemplateClass = Template.header
 
 TemplateClass.helpers
-  userDisplayName: -> Meteor.user().username || Meteor.user().emails[0].address.split('@')[0]
+  userDisplayName: ->
 
 TemplateClass.rendered = ->
   $('.ui.dropdown').dropdown()

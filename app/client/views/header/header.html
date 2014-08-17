@@ -18,15 +18,15 @@
 
           {{#if currentUser}}
           <div class="ui dropdown item">
-            <i class="user icon"></i> {{userDisplayName}} <i class="dropdown icon"></i>
+            <i class="user icon"></i> {{currentUser.username}} <i class="dropdown icon"></i>
 
             <div class="menu">
-              <a class="profile item"><i class="edit icon"></i> Edit Profile</a>
-              <a class="logout item"><i class="sign out icon"></i> Sign out</a>
+              <a href="{{pathFor 'user' _id=currentUser.id}}" class="profile item"><i class="edit icon"></i> Edit Profile</a>
+              <a href="{{pathFor 'entrySignOut'}}" class="logout item"><i class="sign out icon"></i> Sign out</a>
             </div>
           </div>
           {{else}}
-          <a class="login item"><i class="sign in icon"></i> Sign in</a>
+          <a href="{{pathFor 'entrySignIn'}}" class="login item"><i class="sign in icon"></i> Sign in</a>
           {{/if}}
         </div>
       </div>
