@@ -2,39 +2,51 @@
 
   FIELD_SELECTOR: '.form-group',
 
-# We may pass the temporary collection as an attribute to autoform templates, so we need to
-# define this to avoid errors since it is passed into the actual <form> HTML object.
-  preventText: (obj) ->
-    obj.toText = -> ''
-    obj
-
-  defineModelForm: (args) ->
-    name = args.name
+  defineModelForm: (formArgs) ->
+    name = formArgs.name
     Form = Template[name]
     unless Form
       throw new Error 'No template defined with name ' + name
+
+    deferCallback = (result, callback) ->
+      # Defer the callback if the result is a promise. Ignore if result is false. Otherwise execute
+      # callback immediately.
+      unless result == false
+        if result?.then
+          result.then -> callback()
+        else
+          callback()
 
     AutoForm.addHooks name,
       # Settings should be passed to the autoForm helper to ensure they are available in these
       # callbacks.
       onSubmit: (insertDoc, updateDoc, currentDoc) ->
-        console.log 'onSubmit', arguments, @
-        args.onSubmit?.apply(@, arguments)
-        @template.data?.settings?.onSubmit?.apply(@, arguments)
-      onSuccess: (operation, result, template) ->
-        console.log 'onSuccess', arguments, @
-        AutoForm.resetForm(name)
-        args.onSuccess?.apply(@, arguments)
-        template.data?.settings?.onSuccess?.apply(@, arguments)
+        args = arguments
+        template = @template
+        console.debug 'onSubmit', args, @
+        result = formArgs.onSubmit?.apply(@, args)
+        callback = -> template.data?.settings?.onSubmit?.apply(@, args)
+        deferCallback(result, callback)
 
-    if args.hooks?
-      AutoForm.addHooks name, args.hooks
+      onSuccess: (operation, result, template) ->
+        args = arguments
+        console.debug 'onSuccess', args, @
+        AutoForm.resetForm(name)
+        result = formArgs.onSuccess?.apply(@, args)
+        callback = -> template.data?.settings?.onSuccess?.apply(@, args)
+        deferCallback(result, callback)
+
+    if formArgs.hooks?
+      AutoForm.addHooks name, formArgs.hooks
 
     Form.helpers
-      collection: -> Collections.get(args.collection)
+      collection: -> Collections.get(formArgs.collection)
       formName: -> name
+    # Without this a separate copy is passed across, which doesn't allow sharing data between
+    # create method and form hooks.
+      doc: -> @doc
       formTitle: ->
-        collectionName = Collections.getTitle(args.collection)
+        collectionName = Collections.getTitle(formArgs.collection)
         (if @doc then 'Edit' else 'Create') + ' ' + Strings.singular(collectionName)
       formType: -> if @doc then 'update' else 'insert'
       submitText: -> if @doc then 'Save' else 'Create'
@@ -43,21 +55,24 @@
     Form.events
       'click button.cancel': (e, template) ->
         e.preventDefault();
-        console.log 'onCancel', arguments, @
-        args.onCancel?()
+        console.debug 'onCancel', arguments, @
+        formArgs.onCancel?(template)
         template.data?.settings?.onCancel?()
+
+    Form.created = ->
+      formArgs.onCreate?.apply(@, arguments)
 
     Form.rendered = ->
       console.debug 'Rendered form', @, arguments
       # Move the buttons to the same level as the title and content to allow using flex-layout.
-      $buttons = $(@find('.buttons'))
+      $buttons = $(@find('.crud.buttons'))
       $crudForm = $(@find('.flex-panel'))
       if $buttons.length > 0 && $crudForm.length > 0
         $crudForm.append($buttons)
       $('[type="submit"]', $buttons).click ->
         $('form', $crudForm).submit();
 
-      collection = Collections.get(args.collection)
+      collection = Collections.get(formArgs.collection)
       schema = collection?._c2?._simpleSchema;
       $schemaInputs = $(@findAll('[data-schema-key]'));
 
@@ -67,10 +82,13 @@
           $input = $(@)
           key = $input.attr('data-schema-key')
           field = schema.schema(key)
-          schemaInputs[key] =
-            node: @
-            key: key
-            field: field
+          if field
+            schemaInputs[key] =
+              node: @
+              key: key
+              field: field
+          else
+            console.warn('Unrecognised data-schema-key', key, 'for schema', schema)
         @schemaInputs = schemaInputs
 
         popupInputs = []
@@ -91,21 +109,36 @@
             $label.empty()
             $label.append($labelContent).append($units)
 
-        addPopups = ->
+        addPopups = =>
           $(popupInputs).each ->
             $input = $(@)
             $input.data('desc')
-            console.log('$input')
             $input.popup('setting', delay: 500, content: $input.data('desc'))
 
-        removePopups = ->
+        removePopups = =>
           $(popupInputs).popup('destroy')
-          popupInputs = []
 
-        Deps.autorun ->
-          helpMode = Session.get 'helpMode'
-          if helpMode then addPopups() else removePopups()
+        Deps.autorun (c) =>
+          if @.isDestroyed?
+            c.stop()
+          else
+            helpMode = Session.get 'helpMode'
+            if helpMode then addPopups() else removePopups()
+      formArgs.onRender?.apply(@, arguments)
 
-      args.onRender?.apply(this, arguments)
+    Form.destroyed = ->
+      console.debug 'Destroyed form', @, arguments
+      template = @
+      template.isDestroyed = true
+      formArgs.onDestroy?.apply(@, arguments)
 
     Form
+
+# We may pass the temporary collection as an attribute to autoform templates, so we need to
+# define this to avoid errors since it is passed into the actual <form> HTML object.
+  preventText: (obj) ->
+    obj.toText = -> ''
+    obj
+
+  findFieldInput: (template, name) ->
+    template.find('[name="' + name + '"]')
