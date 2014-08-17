@@ -2,12 +2,13 @@ TemplateClass = Template.projectMap
 
 TemplateClass.rendered = ->
   data = @data ?= {}
-  settings = _.defaults(data, {
+  settings = _.defaults(data,
     center: {lat: -37.7968056, lng: 144.9613277}
     type: 'STREET'
     zoom: 17
-  })
+  )
   mapNode = @find('.map')
+
   GoogleMaps.init(
     -> {
 #    sensor: true, # optional

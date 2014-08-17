@@ -1,5 +1,7 @@
 <template name="project">
   <div class="project container">
+    <a class="ui button" href="{{pathFor 'projectEdit' _id=project._id}}">Edit</a>
+
     <div class="info section">
       <h1 class="name">{{project.name}}</h1>
 

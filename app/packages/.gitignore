@@ -9,14 +9,14 @@
 /moment
 /just-i18n
 /lodash
-<<<<<<< HEAD
 /tags
 /selectize
-=======
 /googlemaps
->>>>>>> feature/map
 /easy-search
+<<<<<<< HEAD
 /meteor-utility
+=======
+>>>>>>> f51981d58af588bbeb1815e6ed0140cf046799f4
 /iron-layout
 /iron-core
 /iron-dynamic-template

@@ -1,4 +1,6 @@
-TemplateClass = Template.project;
+TemplateClass = Template.project
+
+console.debug Router.routes
 
 TemplateClass.helpers
 
