@@ -1,5 +1,7 @@
 TemplateClass = Template.project
 
+console.debug Router.routes
+
 TemplateClass.helpers
 
   anyTags: -> !!@project?.tags?.length
